@@ -27,6 +27,8 @@ import { MailConfigService } from './mail/mail-config.service';
 import { ForgotModule } from './forgot/forgot.module';
 import { MailModule } from './mail/mail.module';
 import { HomeModule } from './home/home.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { OpentracingInterceptor } from './interceptors/opentracing.interceptos';
 
 @Module({
   imports: [
@@ -77,6 +79,12 @@ import { HomeModule } from './home/home.module';
     ForgotModule,
     MailModule,
     HomeModule,
+  ],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: OpentracingInterceptor,
+    },
   ],
 })
 export class AppModule {}
